@@ -1,50 +1,50 @@
-# React + TypeScript + Vite
+# Alcremie Uploader Desktop APP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![GitHub repo size](https://img.shields.io/github/repo-size/SidneyRoberto9/alcremie-uploader?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/SidneyRoberto9/alcremie-uploader?style=for-the-badge)
 
-Currently, two official plugins are available:
+<img src=".github/item.png" alt="item">
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<br />
 
-## Expanding the ESLint configuration
+## About
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+This desktop application is built using Electron, React, and TypeScript. It is designed to streamline the process of uploading images to the Alcremie image platform. The app runs in the system tray, allowing users to easily upload images by validating specified folders and automatically sending the files to Alcremie when triggered. It provides a simple and efficient way to manage and upload images.
 
-- Configure the top-level `parserOptions` property like this:
+## Requirements
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- node js
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/SidneyRoberto9/alcremie-uploader
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Go to the project directory
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```bash
+  cd alcremie-uploader
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+Install dependencies
+
+```bash
+  npm install
+```
+
+For build use
+
+```bash
+  npm run dist:win #for Windows
+  npm run dist:linux #for Linux
+  npm run dist:mac #for Mac
+```
+
+And files to install or execute
+
+```bash
+  cd dist
 ```

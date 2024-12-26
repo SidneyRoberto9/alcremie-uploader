@@ -83,7 +83,7 @@ export const App = () => {
                 type="text"
                 value={folder.output}
                 readOnly
-                className="flex-1 bg-gray-700 text-white rounded-lg px-4 py-2 text-xs focus:ring-2 focus:ring-blue-500 outline-none"
+                className="flex-1 bg-gray-700 text-white rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                 placeholder="Select the directory..."
               />
               <button
