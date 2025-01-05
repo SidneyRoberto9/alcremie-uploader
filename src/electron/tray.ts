@@ -1,4 +1,4 @@
-import { BrowserWindow, Menu, Tray, app } from "electron"
+import { app, BrowserWindow, dialog, Menu, Tray } from "electron"
 import path from "path"
 
 import {
@@ -37,10 +37,26 @@ export const createTray = (mainWindow: BrowserWindow) => {
 
     const imagensFromInputPath = await getItemsFromFolder(folder.input)
 
+    if (imagensFromInputPath.length === 0) {
+      return await dialog.showMessageBox(mainWindow, {
+        type: "info",
+        title: "Info",
+        message: "No files found.",
+        buttons: ["OK"],
+      })
+    }
+
     await Promise.all(imagensFromInputPath.map(convertImageToJPEG))
 
-    await sendToAlcremie(folder.output, mainWindow)
+    await sendToAlcremie(folder.output)
 
     await Promise.all(imagensFromInputPath.map(deleteFile))
+
+    await dialog.showMessageBox(mainWindow, {
+      type: "info",
+      title: "Info",
+      message: "Files Uploaded Successfully!",
+      buttons: ["OK"],
+    })
   })
 }

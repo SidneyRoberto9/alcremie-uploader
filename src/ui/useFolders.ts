@@ -4,6 +4,7 @@ export const useFolders = () => {
   const [folder, setFolder] = useState<Folders>({
     input: "",
     output: "",
+    saveToOutput: true,
   })
 
   useEffect(() => {

@@ -2,7 +2,9 @@ import { AlertCircle, CheckCircle2, Folder } from "lucide-react"
 import { useState } from "react"
 
 import { Alert, AlertDescription, AlertTitle } from "@/ui/components/ui/alert"
+import { Checkbox } from "@/ui/components/ui/checkbox"
 import { useFolders } from "@/ui/useFolders"
+import { CheckedState } from "@radix-ui/react-checkbox"
 
 export const App = () => {
   const { folder, setFolder } = useFolders()
@@ -15,6 +17,10 @@ export const App = () => {
       setError("Please select both directories.")
 
       return
+    }
+
+    if (!folder.saveToOutput) {
+      folder.output = ""
     }
 
     window.electron.saveFoldersData(folder)
@@ -32,10 +38,19 @@ export const App = () => {
     }
   }
 
+  const handleChangeCheckbox = (e: CheckedState) => {
+    if (e === "indeterminate") {
+      return
+    }
+
+    setFolder((prev) => ({ ...prev, saveToOutput: e }))
+  }
+
   const handleReset = () => {
     const value = {
       input: "",
       output: "",
+      saveToOutput: true,
     }
     setFolder(value)
 
@@ -80,19 +95,36 @@ export const App = () => {
             </label>
             <div className="flex gap-2">
               <input
+                disabled={!folder.saveToOutput}
                 type="text"
                 value={folder.output}
                 readOnly
-                className="flex-1 bg-gray-700 text-white rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                className="flex-1 bg-gray-700 text-white rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Select the directory..."
               />
               <button
+                disabled={!folder.saveToOutput}
                 onClick={() => handleSelectDir("output")}
-                className="bg-gray-700 p-2 rounded-lg hover:bg-gray-600 transition-colors"
+                className="bg-gray-700 p-2 rounded-lg hover:bg-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Folder className="w-5 h-5 text-gray-200" />
               </button>
             </div>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="save"
+              checked={folder.saveToOutput}
+              onCheckedChange={handleChangeCheckbox}
+              className="border-white data-[state=checked]:bg-gray-700"
+            />
+            <label
+              htmlFor="save"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white focus:ring-2 focus:ring-blue-500"
+            >
+              Save to Output
+            </label>
           </div>
 
           {error && (

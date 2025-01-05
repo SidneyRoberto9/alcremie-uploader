@@ -1,5 +1,4 @@
 import axios from "axios"
-import { BrowserWindow, dialog } from "electron"
 import FormData from "form-data"
 import { createReadStream, existsSync } from "fs"
 import { chmod, copyFile, mkdir, readdir, unlink } from "fs/promises"
@@ -94,10 +93,7 @@ const moveFile = async (source: string, destination: string) => {
   }
 }
 
-export const sendToAlcremie = async (
-  destinationPath: string,
-  mainWindow: BrowserWindow
-) => {
+export const sendToAlcremie = async (destinationPath: string) => {
   const limit = pLimit(5)
 
   const inputItems = []
@@ -110,17 +106,12 @@ export const sendToAlcremie = async (
 
   await Promise.all(inputItems)
 
-  for (const image of images) {
-    const fileName = path.basename(image)
-    const endPath = path.join(destinationPath, fileName)
+  if (destinationPath != "") {
+    for (const image of images) {
+      const fileName = path.basename(image)
+      const endPath = path.join(destinationPath, fileName)
 
-    await moveFile(image, endPath)
+      await moveFile(image, endPath)
+    }
   }
-
-  await dialog.showMessageBox(mainWindow, {
-    type: "info",
-    title: "Aviso",
-    message: "Arquivos Enviados com sucesso!",
-    buttons: ["OK"],
-  })
 }

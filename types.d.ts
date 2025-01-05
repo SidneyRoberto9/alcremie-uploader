@@ -31,6 +31,7 @@ type ProgressInfo = {
 type Folders = {
   input: string
   output: string
+  saveToOutput: boolean
 }
 
 type EventPayloadMapping = {

@@ -24,6 +24,7 @@ app.on("ready", () => {
     width: 475,
     height: 600,
     show: false,
+    alwaysOnTop: true,
   })
 
   if (isDev()) {

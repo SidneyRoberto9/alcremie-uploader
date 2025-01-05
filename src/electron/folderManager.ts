@@ -19,6 +19,7 @@ export const createIfNotExitFoldersDirectory = () => {
   const baseFile: Folders = {
     input: "",
     output: "",
+    saveToOutput: true,
   }
 
   const dataDir = getStoragePath()
